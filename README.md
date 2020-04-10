@@ -17,31 +17,38 @@ Teni là gì ?
 * Teni là kết hợp **Te**lex và V**ni** - 2 kiểu gõ tiếng Việt phổ biến nhất.
 * Teni cũng là kiểu gõ mặc định của bộ gõ này, vừa gõ được Telex, vừa gõ được Vni.
 
-### Sơ lượt tính năng
+
+### Sơ lược tính năng
 * Chỉ bảng mã Unicode
-* 2 kiểu gõ: 
-  * **Kiểu gõ Teni**
+* 3 kiểu gõ: 
+  * **Kiểu gõ Teni** (Telex + Vni, không cho phép gõ nhanh ư, ơ bằng w, [, ])
   * **Kiểu gõ Vni**
+  * **Kiểu gõ Telex** (cho phép gõ nhanh ư, ơ bằng w, [, ])
 * 2 kiểu đánh dấu thanh:
   * **Dấu thanh chuẩn**
   * **Dấu thanh kiểu mới**
 * Gõ dấu tự do, đánh dấu thanh bằng từ điển
+* Có danh sách loại trừ ứng dụng không dùng bộ gõ
 
 Cài đặt và cấu hình
 ------------------
-*Bên dưới là hướng dẫn cho Ubuntu 18 (các distro khác: [wiki](https://github.com/teni-ime/ibus-teni/wiki/H%C6%B0%E1%BB%9Bng-d%E1%BA%ABn-c%C3%A0i-%C4%91%E1%BA%B7t))*
 
-### Cài đặt
+### Cài đặt (Ubuntu)
 
-1. Tải file package tại trang [release](https://github.com/teni-ime/ibus-teni/releases)
+```sh
+sudo add-apt-repository ppa:teni-ime/ibus-teni
+sudo apt-get update
+sudo apt-get install ibus-teni
+ibus restart
+```
 
-2. Double click vào file để cài hoặc chạy command:
+**Lệnh bên dưới cho phép đọc event chuột, không bắt buộc nhưng cần để ibus-teni hoạt động tốt**
+```sh
+sudo usermod -a -G input $USER
+```
 
-   `sudo dpkg -i ibus-teni-<version>.deb`
 
-3. Restart IBus:
-
-   `ibus restart`
+*Cài đặt cho các bản Linux khác và hướng dẫn cài đặt từ mã nguồn: [wiki](https://github.com/teni-ime/ibus-teni/wiki/H%C6%B0%E1%BB%9Bng-d%E1%BA%ABn-c%C3%A0i-%C4%91%E1%BA%B7t)*
     
 ### Cấu hình
 1. [Keyboard input method system: IBus](https://github.com/teni-ime/ibus-teni/wiki/H%C6%B0%E1%BB%9Bng-d%E1%BA%ABn-c%E1%BA%A5u-h%C3%ACnh#1-keyboard-input-method-system-ibus)
@@ -49,7 +56,7 @@ Cài đặt và cấu hình
     
 ### Gỡ bỏ
 ```
-sudo apt remove ibus-teni -y
+sudo apt remove ibus-teni
 ibus restart
 ```
 
@@ -61,29 +68,33 @@ Sử dụng
     * **Chữ đang gõ bị mất**
     * **Chữ đang gõ được commit vào vị trí mới con trỏ**
     * **Chữ đang gõ được commit vào vị trí cũ**
-* **Vì vậy đừng quên commit: khi gõ chỉ một chữ, hoặc chữ cuối câu, hoặc sửa chữ giữa câu: nhấn Ctrl hoặc phím mũi tên (↑→↓←) để commit.**
+* **Vì vậy đừng quên commit: khi gõ chỉ một chữ, hoặc chữ cuối câu, hoặc sửa chữ giữa câu: nhấn phím *Ctrl* để commit.**
          
 
 Các phiên bản
 ------------
 * Phiên bản thử nghiệm không công khai hoàn thành vào cuối tháng 5/2018
-* Phiên bản thử nghiệm công khai dự kiến phát hành vào đầu tháng 7/2018
+* Phiên bản thử nghiệm công khai phát hành vào đầu tháng 7/2018
 * Phiên bản chính thức phát hành vào ngày 29/7/2018
 
 Xem trang [release](https://github.com/teni-ime/ibus-teni/releases) để biết chi tiết các phiên bản đã phát hành.
+
+Góp ý và báo lỗi
+--------------
+Xem [hướng dẫn](https://github.com/teni-ime/ibus-teni/wiki/H%C6%B0%E1%BB%9Bng-d%E1%BA%ABn-g%C3%B3p-%C3%BD%2C-b%C3%A1o-l%E1%BB%97i)
 
 Giấy phép
 -------
 Toàn bộ code IBus Teni được viết bởi Nguyen Cong Hoang và những người đóng góp được phát hành dưới giấy phép 
 [GNU General Public License version 3](https://opensource.org/licenses/GPL-3.0).
 
-Code trong thư mục [src/ibus-teni/vendor](src/third_party) là của các bên thứ 3,
+Code trong thư mục [src/ibus-teni/vendor](src/ibus-teni/vendor) là của các bên thứ 3,
 xem các thông báo bản quyền trong từng thư mục con.
 
 * godbus: xem [src/ibus-teni/vendor/github.com/godbus/dbus/README.markdown](src/ibus-teni/vendor/github.com/godbus/dbus/README.markdown)
 * goibus: xem [src/ibus-teni/vendor/github.com/sarim/goibus/README.md](src/ibus-teni/vendor/github.com/sarim/goibus/README.md)
 
-
 Dữ liệu từ điển trong thư mục [dict](dict): xem [dict/LICENSE](dict/LICENSE)
 * [Dữ liệu từ điển tiếng Việt của Ho Ngoc Duc](http://www.informatik.uni-leipzig.de/~duc/Dict/)
+* [Wiktionary tiếng Việt](https://vi.wiktionary.org/wiki/Trang_Chính)
 * [Danh sách viết tắt trong tiếng Việt của QUOC-HUNG NGO](https://sites.google.com/site/ngo2uochung/research/dsviettat-tieng-viet)

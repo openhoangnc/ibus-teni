@@ -25,8 +25,8 @@ package main
 
 const (
 	//IBusModifierType
-	IBUS_SHIFT_MASK = 1 << 0 //Shift is activated.
-	//IBUS_LOCK_MASK     = 1 << 1            //Cap Lock is locked.
+	IBUS_SHIFT_MASK   = 1 << 0 //Shift is activated.
+	IBUS_LOCK_MASK    = 1 << 1 //Cap Lock is locked.
 	IBUS_CONTROL_MASK = 1 << 2 //Control key is activated.
 	IBUS_MOD1_MASK    = 1 << 3 //Modifier 1 (Usually Alt_L (0x40), Alt_R (0x6c), Meta_L (0xcd)) activated.
 	//IBUS_MOD2_MASK     = 1 << 4            //Modifier 2 (Usually Num_Lock (0x4d)) activated.
@@ -56,20 +56,6 @@ const (
 	//IBUS_CAP_FOCUS            = 1 << 3 //UI is capable to get focus.
 	//IBUS_CAP_PROPERTY         = 1 << 4 //UI is capable to have property.
 	IBUS_CAP_SURROUNDING_TEXT = 1 << 5 //Client can provide surround text, or IME can handle surround text.
-)
-
-const (
-	//IBusInputPurpose
-	IBUS_INPUT_PURPOSE_FREE_FORM = 0 //Allow any character
-	IBUS_INPUT_PURPOSE_ALPHA     = 1 //Allow only alphabetic characters
-	//IBUS_INPUT_PURPOSE_DIGITS    = 2 //Allow only digits
-	//IBUS_INPUT_PURPOSE_NUMBER    = 3 //Edited field expects numbers
-	//IBUS_INPUT_PURPOSE_PHONE     = 4 //Edited field expects phone number
-	//IBUS_INPUT_PURPOSE_URL       = 5 //Edited field expects URL
-	//IBUS_INPUT_PURPOSE_EMAIL     = 6 //Edited field expects email address
-	IBUS_INPUT_PURPOSE_NAME = 7 //Edited field expects the name of a person
-	//IBUS_INPUT_PURPOSE_PASSWORD  = 8 //Like IBUS_INPUT_PURPOSE_FREE_FORM, but characters are hidden
-	//IBUS_INPUT_PURPOSE_PIN       = 9 //Like IBUS_INPUT_PURPOSE_DIGITS, but characters are hidden
 )
 
 // ibuskeysyms-compat

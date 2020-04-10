@@ -20,7 +20,7 @@
 engine_name=teni
 ibus_e_name=ibus-engine-$(engine_name)
 pkg_name=ibus-$(engine_name)
-version=1.1.0
+version=1.5.3
 
 engine_dir=/usr/share/$(pkg_name)
 ibus_dir=/usr/share/ibus
@@ -31,18 +31,35 @@ rpm_src_tar=$(rpm_src_dir)/$(tar_file)
 tar_options_src=--transform "s/^\./$(pkg_name)-$(version)/" --exclude={"*.tar.gz",".git",".idea"} .
 
 test:
-	GOPATH=$(CURDIR) go test teni
+	GOPATH=$(CURDIR) GOCACHE=/tmp go test teni
 
 
 cover:
-	GOPATH=$(CURDIR) go test --cover -c -o test_teni_linux teni
+	GOPATH=$(CURDIR) GOCACHE=/tmp go test --cover -c -o test_teni_linux teni
 	./test_teni_linux -test.coverprofile=teni_cover.out
-	GOPATH=$(CURDIR) go tool cover -html=teni_cover.out -o teni_cover.html
+	GOPATH=$(CURDIR) GOCACHE=/tmp go tool cover -html=teni_cover.out -o teni_cover.html
 	rm -f test_teni_linux teni_cover.out
 
 
 build:
-	GOPATH=$(CURDIR) go build -buildmode=pie -ldflags "-w -s" -o $(ibus_e_name) ibus-$(engine_name)
+	GOPATH=$(CURDIR) GOCACHE=/tmp go build -ldflags "-w -s" -o $(ibus_e_name) ibus-$(engine_name)
+
+
+dict-gen:
+	cd src/dict-gen && dep ensure -update
+	GOPATH=$(CURDIR) GOCACHE=/tmp go build -o dict_gen_linux dict-gen
+	./dict_gen_linux
+	rm -f dict_gen_linux
+
+
+tdata-gen:
+	go run test-data/test-data-gen.go
+	rm test-data/vietnamese.new.dict.telexw.tdata
+	rm test-data/vietnamese.sp.dict.telex1.tdata
+	rm test-data/vietnamese.sp.dict.telex2.tdata
+	rm test-data/vietnamese.sp.dict.telex3.tdata
+	rm test-data/vietnamese.sp.dict.telexw.tdata
+	rm test-data/vietnamese.std.dict.telexw.tdata
 
 
 clean:
@@ -58,7 +75,7 @@ install: build
 	mkdir -p $(DESTDIR)/usr/lib/
 	mkdir -p $(DESTDIR)$(ibus_dir)/component/
 
-	cp -R -f icon.png dict $(DESTDIR)$(engine_dir)
+	cp -R -f except.tmpl.txt icon.png wm.bash dict $(DESTDIR)$(engine_dir)
 	cp -f $(ibus_e_name) $(DESTDIR)/usr/lib/
 	cp -f $(engine_name).xml $(DESTDIR)$(ibus_dir)/component/
 
@@ -85,7 +102,7 @@ rpm: clean
 
 
 #start ubuntu docker:   docker  run  -v `pwd`:`pwd` -w `pwd` -i -t  ubuntu bash
-#install buildpackages: apt update && apt install dh-make golang -y
+#install buildpackages: apt update && apt install dh-make golang libx11-dev -y
 deb: clean
 	dpkg-buildpackage
 

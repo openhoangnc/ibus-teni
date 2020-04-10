@@ -27,12 +27,17 @@ import (
 )
 
 const (
-	PropKeyAbout       = "about"
-	PropKeyMethodTeni  = "method_teni"
-	PropKeyMethodVni   = "method_vni"
-	PropKeyMethodTelex = "method_telex"
-	PropKeyToneStd     = "tone_std"
-	PropKeyToneNew     = "tone_new"
+	PropKeyAbout         = "about"
+	PropKeyMethodTeni    = "method_teni"
+	PropKeyMethodVni     = "method_vni"
+	PropKeyMethodTelex   = "method_telex"
+	PropKeyMethodTelexEx = "method_telex_ex"
+	PropKeyToneStd       = "tone_std"
+	PropKeyToneNew       = "tone_new"
+	PropKeyExcept        = "except"
+	PropKeyExceptList    = "except_list"
+	PropKeyLongText      = "long_text"
+	PropKeyForceSpell    = "force_spell"
 )
 
 var runMode = ""
@@ -41,6 +46,7 @@ func GetPropListByConfig(c *Config) *ibus.PropList {
 	teniChecked := ibus.PROP_STATE_UNCHECKED
 	vniChecked := ibus.PROP_STATE_UNCHECKED
 	telexChecked := ibus.PROP_STATE_UNCHECKED
+	telexExChecked := ibus.PROP_STATE_UNCHECKED
 	toneStdChecked := ibus.PROP_STATE_UNCHECKED
 	toneNewChecked := ibus.PROP_STATE_UNCHECKED
 
@@ -51,6 +57,8 @@ func GetPropListByConfig(c *Config) *ibus.PropList {
 		vniChecked = ibus.PROP_STATE_CHECKED
 	case teni.IMTelex:
 		telexChecked = ibus.PROP_STATE_CHECKED
+	case teni.IMTelexEx:
+		telexExChecked = ibus.PROP_STATE_CHECKED
 	}
 	switch c.ToneType {
 	case ConfigToneStd:
@@ -62,14 +70,14 @@ func GetPropListByConfig(c *Config) *ibus.PropList {
 	return ibus.NewPropList(
 		&ibus.Property{
 			Name:      "IBusProperty",
-			Key:       "about",
+			Key:       PropKeyAbout,
 			Type:      ibus.PROP_TYPE_NORMAL,
 			Label:     dbus.MakeVariant(ibus.NewText("Bộ gõ " + EngineName + " " + Version + runMode)),
 			Tooltip:   dbus.MakeVariant(ibus.NewText("Mở trang chủ")),
 			Sensitive: true,
 			Visible:   true,
 			Icon:      "gtk-about",
-			Symbol:    dbus.MakeVariant(ibus.NewText("A")),
+			Symbol:    dbus.MakeVariant(ibus.NewText("B")),
 			SubProps:  dbus.MakeVariant(*ibus.NewPropList()),
 		},
 		&ibus.Property{
@@ -112,11 +120,23 @@ func GetPropListByConfig(c *Config) *ibus.PropList {
 			Key:       PropKeyMethodTelex,
 			Type:      ibus.PROP_TYPE_RADIO,
 			Label:     dbus.MakeVariant(ibus.NewText("Kiểu gõ Telex")),
-			Tooltip:   dbus.MakeVariant(ibus.NewText("Chỉ kiểu gõ Telex")),
+			Tooltip:   dbus.MakeVariant(ibus.NewText("Kiểu gõ Telex không dùng []")),
 			Sensitive: true,
 			Visible:   true,
 			State:     telexChecked,
-			Symbol:    dbus.MakeVariant(ibus.NewText("TX")),
+			Symbol:    dbus.MakeVariant(ibus.NewText("X")),
+			SubProps:  dbus.MakeVariant(*ibus.NewPropList()),
+		},
+		&ibus.Property{
+			Name:      "IBusProperty",
+			Key:       PropKeyMethodTelexEx,
+			Type:      ibus.PROP_TYPE_RADIO,
+			Label:     dbus.MakeVariant(ibus.NewText("Kiểu gõ [Telex]")),
+			Tooltip:   dbus.MakeVariant(ibus.NewText("Kiểu gõ Telex có dùng []")),
+			Sensitive: true,
+			Visible:   true,
+			State:     telexExChecked,
+			Symbol:    dbus.MakeVariant(ibus.NewText("[")),
 			SubProps:  dbus.MakeVariant(*ibus.NewPropList()),
 		},
 		&ibus.Property{
@@ -152,6 +172,71 @@ func GetPropListByConfig(c *Config) *ibus.PropList {
 			Visible:   true,
 			State:     toneNewChecked,
 			Symbol:    dbus.MakeVariant(ibus.NewText("M")),
+			SubProps:  dbus.MakeVariant(*ibus.NewPropList()),
+		},
+		&ibus.Property{
+			Name:      "IBusProperty",
+			Key:       "-",
+			Type:      ibus.PROP_TYPE_SEPARATOR,
+			Label:     dbus.MakeVariant(ibus.NewText("")),
+			Tooltip:   dbus.MakeVariant(ibus.NewText("")),
+			Sensitive: true,
+			Visible:   true,
+			Symbol:    dbus.MakeVariant(ibus.NewText("")),
+			SubProps:  dbus.MakeVariant(*ibus.NewPropList()),
+		}, &ibus.Property{
+			Name:      "IBusProperty",
+			Key:       PropKeyExcept,
+			Type:      ibus.PROP_TYPE_TOGGLE,
+			Label:     dbus.MakeVariant(ibus.NewText("Loại trừ ứng dụng")),
+			Tooltip:   dbus.MakeVariant(ibus.NewText("Loại trừ các ứng dụng không cần gõ tiếng Việt")),
+			Sensitive: true,
+			Visible:   true,
+			State:     c.EnableExcept,
+			Symbol:    dbus.MakeVariant(ibus.NewText("L")),
+			SubProps:  dbus.MakeVariant(*ibus.NewPropList()),
+		}, &ibus.Property{
+			Name:      "IBusProperty",
+			Key:       PropKeyExceptList,
+			Type:      ibus.PROP_TYPE_NORMAL,
+			Label:     dbus.MakeVariant(ibus.NewText("Danh sách loại trừ")),
+			Tooltip:   dbus.MakeVariant(ibus.NewText("Mở file danh sách các ứng dụng không cần gõ tiếng Việt")),
+			Sensitive: true,
+			Visible:   true,
+			Symbol:    dbus.MakeVariant(ibus.NewText("D")),
+			SubProps:  dbus.MakeVariant(*ibus.NewPropList()),
+		},
+		&ibus.Property{
+			Name:      "IBusProperty",
+			Key:       "-",
+			Type:      ibus.PROP_TYPE_SEPARATOR,
+			Label:     dbus.MakeVariant(ibus.NewText("")),
+			Tooltip:   dbus.MakeVariant(ibus.NewText("")),
+			Sensitive: true,
+			Visible:   true,
+			Symbol:    dbus.MakeVariant(ibus.NewText("")),
+			SubProps:  dbus.MakeVariant(*ibus.NewPropList()),
+		}, &ibus.Property{
+			Name:      "IBusProperty",
+			Key:       PropKeyLongText,
+			Type:      ibus.PROP_TYPE_TOGGLE,
+			Label:     dbus.MakeVariant(ibus.NewText("Giữ nhiều chữ")),
+			Tooltip:   dbus.MakeVariant(ibus.NewText("Giữ nhiều chữ khi đang gõ, cho sửa dấu các từ đã gõ xong")),
+			Sensitive: true,
+			Visible:   true,
+			State:     c.EnableLongText,
+			Symbol:    dbus.MakeVariant(ibus.NewText("G")),
+			SubProps:  dbus.MakeVariant(*ibus.NewPropList()),
+		}, &ibus.Property{
+			Name:      "IBusProperty",
+			Key:       PropKeyForceSpell,
+			Type:      ibus.PROP_TYPE_TOGGLE,
+			Label:     dbus.MakeVariant(ibus.NewText("Đúng chính tả")),
+			Tooltip:   dbus.MakeVariant(ibus.NewText("Sẽ khôi phục phím với những từ không có trong từ điển tiếng Việt")),
+			Sensitive: true,
+			Visible:   true,
+			State:     c.EnableForceSpell,
+			Symbol:    dbus.MakeVariant(ibus.NewText("G")),
 			SubProps:  dbus.MakeVariant(*ibus.NewPropList()),
 		},
 	)

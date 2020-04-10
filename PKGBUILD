@@ -19,17 +19,17 @@
 
 # Maintainer: Nguyen Cong Hoang <hoangnc.jp@gmail.com>
 pkgname=ibus-teni
-pkgver=1.1.0
+pkgver=1.5.3
 pkgrel=1
 pkgdesc='A Vietnamese IME for IBus'
 arch=(any)
 license=(GPL3)
 url="https://github.com/teni-ime/ibus-teni"
 depends=(ibus)
-makedepends=(go)
+makedepends=('go' 'libx11')
 source=($pkgname-$pkgver.tar.gz)
 md5sums=('SKIP')
-
+options=('!strip')
 
 build() {
   cd "$pkgname-$pkgver"

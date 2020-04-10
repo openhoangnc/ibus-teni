@@ -21,12 +21,39 @@
 package teni
 
 var changeCharMap = map[rune]rune{
-	'[': 'ơ',
-	']': 'ư',
 	'w': 'ư',
+	'W': 'Ư',
+}
+
+var changeCharMapEx = map[rune]rune{
+	'[': 'ơ',
+	'{': 'Ơ',
+	']': 'ư',
+	'}': 'Ư',
+	'w': 'ư',
+	'W': 'Ư',
 }
 
 func InChangeCharMap(c rune) bool {
 	_, exist := changeCharMap[c]
 	return exist
+}
+
+func InChangeCharMapEx(c rune) bool {
+	_, exist := changeCharMapEx[c]
+	return exist
+}
+
+var caplockSwitchMap = map[uint32]uint32{
+	'[': '{',
+	'{': '[',
+	']': '}',
+	'}': ']',
+}
+
+func SwitchCaplock(keyVal uint32) uint32 {
+	if v, exist := caplockSwitchMap[keyVal]; exist {
+		return v
+	}
+	return keyVal
 }

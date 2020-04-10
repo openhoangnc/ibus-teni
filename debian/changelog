@@ -1,3 +1,115 @@
+ibus-teni (1.5.3-1) stable; urgency=low
+
+  * Release 1.5.3
+    - Build cho Ubuntu 20.04
+
+ -- Nguyen Cong Hoang <hoangnc.jp@gmail.com>  Sat, 10 Apr 2020 00:00:00 +0900
+
+ibus-teni (1.5.2-1) stable; urgency=low
+
+  * Release 1.5.2
+    - Sửa kiểu gõ tự do không kiểm tra chính tả
+
+ -- Nguyen Cong Hoang <hoangnc.jp@gmail.com>  Sat, 24 Nov 2018 00:00:00 +0900
+
+
+ibus-teni (1.5.1-1) stable; urgency=low
+
+  * Release 1.5.1
+    - Sửa kiểu gõ tự do không kiểm tra chính tả
+
+ -- Nguyen Cong Hoang <hoangnc.jp@gmail.com>  Fri, 23 Nov 2018 00:00:00 +0900
+
+
+ibus-teni (1.5.0-1) stable; urgency=low
+
+  * Release 1.5.0
+    - Thêm kiểu gõ [Telex] (kiểu gõ này cho phép dùng phím [])
+    - Sửa lỗi không xóa hết chữ trên Telegram
+    - Sửa lỗi con trỏ chuột nhảy về đầu dòng trên Facebook chat
+
+ -- Nguyen Cong Hoang <hoangnc.jp@gmail.com>  Sun, 4 Nov 2018 00:00:00 +0900
+
+ibus-teni (1.4.2-1) stable; urgency=low
+
+  * Release 1.4.2
+    - Sửa lỗi mất chữ khi đang gõ
+    - Sửa lỗi con trỏ chuột nhảy về đầu dòng trên Facebook chat
+
+ -- Nguyen Cong Hoang <hoangnc.jp@gmail.com>  Mon, 22 Oct 2018 00:00:00 +0900
+
+ibus-teni (1.4.1-1) stable; urgency=low
+
+  * Release 1.4.1
+    - Cập nhật từ điển
+    - Sửa lỗi mất chữ khi đang gõ
+
+ -- Nguyen Cong Hoang <hoangnc.jp@gmail.com>  Sun, 21 Oct 2018 00:00:00 +0900
+
+ibus-teni (1.4.0-1) stable; urgency=low
+
+  * Release 1.4.0
+    - Thêm lựa chọn "Giữ nhiều chữ", cho phép sửa dấu những chữ đã gõ xong
+    - Thêm lựa chọn "Đúng chính tả", cho phép bỏ qua kiểm tra chính tả
+
+ -- Nguyen Cong Hoang <hoangnc.jp@gmail.com>  Sun, 7 Oct 2018 00:00:00 +0900
+
+ibus-teni (1.3.3-1) stable; urgency=low
+
+  * Release 1.3.3
+    - Tối ưu chức năng "Loại trừ ứng dụng"
+    - Sửa lỗi không gõ được sau khi click chuột đi chỗ khác
+    - Thêm xử lý xóa pre-edit khi click chuột
+
+ -- Nguyen Cong Hoang <hoangnc.jp@gmail.com>  Sun, 23 Sep 2018 00:00:00 +0900
+
+ibus-teni (1.3.2-1) stable; urgency=low
+
+  * Release 1.3.2
+    - Tối ưu chức năng "Loại trừ ứng dụng"
+    - Sửa lỗi không gõ được trên FreeOffice và Wine
+
+ -- Nguyen Cong Hoang <hoangnc.jp@gmail.com>  Sat, 15 Sep 2018 00:00:00 +0900
+
+ibus-teni (1.3.1-1) stable; urgency=low
+
+  * Release 1.3.1
+    - Sửa lỗi chức năng "Loại trừ ứng dụng"
+
+ -- Nguyen Cong Hoang <hoangnc.jp@gmail.com>  Sun, 9 Sep 2018 00:00:00 +0900
+
+ibus-teni (1.3.0-1) stable; urgency=low
+
+  * Release 1.3.0
+    - Thêm chức năng "Loại trừ ứng dụng"
+    - Cập nhật từ điển (bổ sung ~700 từ)
+
+ -- Nguyen Cong Hoang <hoangnc.jp@gmail.com>  Tue, 4 Sep 2018 00:00:00 +0900
+
+ibus-teni (1.2.2-1) stable; urgency=low
+
+  * Release 1.2.2
+    - Thay đổi xử lý commit: forward tất cả các phím khi commit
+    - Sửa lỗi khôi phục phím khi nhấn phím dấu 2 lần
+
+ -- Nguyen Cong Hoang <hoangnc.jp@gmail.com>  Sun, 26 Aug 2018 00:00:00 +0900
+
+ibus-teni (1.2.1-1) stable; urgency=low
+
+  * Release 1.2.1
+    - Sửa lỗi khôi phục phím w, [, ] trên kiểu gõ Telex
+    - Bổ sung danh sách từ tiếng Việt: xịn
+
+ -- Nguyen Cong Hoang <hoangnc.jp@gmail.com>  Tue, 21 Aug 2018 00:00:00 +0900
+
+ibus-teni (1.2.0-1) stable; urgency=low
+
+  * Release 1.2.0
+    - Thêm kiểu gõ Telex (cho phép gõ nhanh bằng w, [,])
+    - Sửa lỗi mất gợi ý khi gõ trên thanh địa chỉ của Chrome
+
+ -- Nguyen Cong Hoang <hoangnc.jp@gmail.com>  Fri, 17 Aug 2018 00:00:00 +0900
+
 ibus-teni (1.1.0-1) stable; urgency=low
 
   * Release 1.1.0
